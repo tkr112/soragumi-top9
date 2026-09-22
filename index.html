@@ -1,1 +1,1242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>宙組 好き顔9選</title>
 
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;min-height:100%}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  color:#51445f;
+  background:
+    radial-gradient(circle at 10% 8%,rgba(194,166,224,.20),transparent 24%),
+    radial-gradient(circle at 90% 35%,rgba(220,202,239,.28),transparent 25%),
+    linear-gradient(180deg,#fffefe 0%,#faf5ff 50%,#f0e6fa 100%);
+  min-height:100vh;
+}
+
+button{font-family:inherit}
+button:disabled{opacity:.35}
+
+.app{
+  width:min(100%,620px);
+  margin:0 auto;
+  min-height:100vh;
+  padding:15px 14px 35px;
+  position:relative;
+  overflow:hidden;
+}
+
+.content{position:relative;z-index:2}
+
+/* 惑星：絵文字ではなくCSS描画 */
+
+.planet{
+  position:relative;
+  width:38px;
+  height:38px;
+}
+
+.planet-body{
+  position:absolute;
+  width:24px;
+  height:24px;
+  left:7px;
+  top:7px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#c8a7e8,#8e64b8);
+  z-index:2;
+  box-shadow:inset -4px -4px 8px rgba(89,54,120,.15);
+}
+
+.planet-ring{
+  position:absolute;
+  width:42px;
+  height:14px;
+  left:-2px;
+  top:12px;
+  border:3px solid #9f78c7;
+  border-radius:50%;
+  transform:rotate(-18deg);
+  z-index:3;
+}
+
+.decor-planet{
+  position:fixed;
+  opacity:.12;
+  pointer-events:none;
+  z-index:0;
+}
+
+.decor-planet.p1{top:4%;left:-8px;transform:scale(2.8) rotate(-10deg)}
+.decor-planet.p2{top:41%;right:-7px;transform:scale(2.3) rotate(18deg)}
+.decor-planet.p3{bottom:5%;left:5px;transform:scale(2.5) rotate(-18deg)}
+
+.header{text-align:center;padding:14px 10px 16px}
+
+.eyebrow{
+  color:#8b6ba8;
+  font-family:Georgia,serif;
+  letter-spacing:.22em;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.title{
+  margin:0;
+  font-size:29px;
+  line-height:1.25;
+  font-weight:900;
+  color:#51445f;
+}
+
+.title-number{color:#9569bd}
+
+.title-decoration{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:13px;
+  margin:12px auto 0;
+}
+
+.title-decoration::before,
+.title-decoration::after{
+  content:"";
+  width:85px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#b69ad0);
+}
+
+.title-decoration::after{
+  background:linear-gradient(90deg,#b69ad0,transparent);
+}
+
+.mini-planet{transform:scale(.65)}
+
+.stepper{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  margin:4px 5px 18px;
+  position:relative;
+}
+
+.stepper::before{
+  content:"";
+  position:absolute;
+  top:18px;
+  left:12%;
+  right:12%;
+  height:3px;
+  background:#e8dff0;
+  z-index:0;
+}
+
+.step{width:25%;text-align:center;position:relative;z-index:1}
+
+.step-circle{
+  width:36px;height:36px;margin:0 auto 7px;border-radius:50%;
+  background:#eee6f4;color:#937fa3;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:900;border:3px solid #fff;
+}
+
+.step-label{font-size:11px;font-weight:900;color:#937fa3}
+
+.step.active .step-circle,.step.done .step-circle{
+  background:#9b73bd;color:#fff;
+}
+
+.step.active .step-label,.step.done .step-label{color:#855fa5}
+
+.step.active .step-circle{
+  box-shadow:0 0 0 4px rgba(155,115,189,.13);
+}
+
+.panel{
+  background:rgba(255,255,255,.90);
+  border:1px solid rgba(207,185,226,.58);
+  border-radius:28px;
+  padding:18px;
+  box-shadow:0 16px 45px rgba(118,83,150,.10);
+  backdrop-filter:blur(8px);
+}
+
+.home{text-align:center;padding:30px 18px 32px}
+
+.home-planet{
+  width:76px;height:76px;margin:0 auto 18px;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.home-planet .planet{transform:scale(1.8)}
+
+.home h2{font-size:26px;margin:0 0 15px}
+
+.home p{
+  margin:0 auto;max-width:390px;font-size:14px;
+  line-height:1.9;color:#7d6d89;
+}
+
+.flow{
+  margin:25px auto;display:flex;justify-content:center;
+  align-items:center;flex-wrap:wrap;gap:7px;
+}
+
+.flow span{
+  padding:7px 11px;background:#faf4ff;border:1px solid #d7c2e7;
+  border-radius:999px;font-size:12px;font-weight:800;color:#8963a9;
+}
+
+.flow b{color:#bea7d1;font-weight:500}
+
+.primary-button{
+  border:0;width:100%;min-height:54px;border-radius:18px;
+  background:linear-gradient(135deg,#b994d7,#8a61ad);
+  color:#fff;font-size:16px;font-weight:900;
+  box-shadow:0 10px 25px rgba(130,90,165,.22);cursor:pointer;
+}
+
+.secondary-button{
+  border:1px solid #d4bee5;background:#fff;color:#8662a3;
+  width:100%;min-height:50px;border-radius:16px;
+  font-weight:800;font-size:14px;cursor:pointer;
+}
+
+.button-row{display:grid;grid-template-columns:100px 1fr;gap:8px}
+.primary-button:active,.secondary-button:active{transform:scale(.985)}
+
+.progress-wrap{margin-bottom:13px}
+
+.progress-info{
+  display:flex;justify-content:space-between;margin:0 3px 8px;
+  color:#846f93;font-size:12px;font-weight:800;
+}
+
+.progress-track{
+  width:100%;height:7px;background:#e9dff0;
+  border-radius:999px;overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;background:linear-gradient(90deg,#c4a3df,#946bbc);
+  border-radius:999px;
+}
+
+.stage-title{text-align:center;margin:7px 0 5px;font-size:21px;font-weight:900}
+
+.stage-subtitle{
+  text-align:center;margin:0 0 14px;font-size:12px;color:#897994;
+}
+
+.member-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+
+.member-card{
+  position:relative;border:1px solid rgba(210,190,226,.68);
+  background:#fff;border-radius:17px;padding:6px 6px 9px;
+  box-shadow:0 6px 17px rgba(115,80,145,.08);
+  cursor:pointer;transition:.15s;
+}
+
+.member-card.selected{
+  border:2px solid #9870ba;background:#faf5ff;transform:translateY(-2px);
+}
+
+.member-photo{
+  width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;
+  border-radius:12px;display:block;background:#f1e9f7;
+}
+
+.member-name{
+  font-size:11px;line-height:1.35;font-weight:800;text-align:center;
+  margin-top:7px;color:#554861;min-height:30px;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* 選択マークも惑星 */
+
+.selected-planet{
+  display:none;
+  position:absolute;
+  right:-8px;
+  top:-8px;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#fff;
+  border:2px solid #c4a6dc;
+  z-index:4;
+  box-shadow:0 3px 7px rgba(110,75,140,.16);
+}
+
+.selected-planet .planet{
+  transform:scale(.68);
+  position:absolute;
+  left:0;
+  top:0;
+}
+
+.member-card.selected .selected-planet{display:block}
+
+.bottom-actions{
+  position:sticky;bottom:8px;margin-top:14px;padding:10px;border-radius:20px;
+  background:rgba(252,248,255,.95);
+  border:1px solid rgba(210,190,226,.78);
+  backdrop-filter:blur(10px);
+  box-shadow:0 8px 30px rgba(110,75,140,.13);z-index:10;
+}
+
+.selection-count{
+  text-align:center;color:#806491;font-size:12px;font-weight:800;margin-bottom:8px;
+}
+
+.compare-wrap{padding:10px 12px 18px}
+
+.compare-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:17px;
+}
+
+.compare-card{
+  border:1px solid #d7c4e5;border-radius:22px;background:#fff;
+  padding:8px 8px 13px;box-shadow:0 10px 28px rgba(110,75,140,.10);
+  cursor:pointer;
+}
+
+.compare-card:active{transform:scale(.985)}
+
+.compare-photo{
+  width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;
+  border-radius:16px;display:block;
+}
+
+.compare-name{text-align:center;margin-top:10px;font-size:14px;font-weight:900}
+
+.result-heading{text-align:center;padding:7px 0 18px}
+.result-heading h2{margin:0;font-size:27px}
+
+.result-decoration{
+  width:120px;height:1px;
+  background:linear-gradient(90deg,transparent,#a683c2,transparent);
+  margin:14px auto 0;
+}
+
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+
+.result-card{
+  position:relative;background:#fff;border:1px solid #dccce8;
+  border-radius:18px;padding:7px 7px 10px;
+  box-shadow:0 7px 20px rgba(110,75,140,.09);
+}
+
+.result-card img{
+  width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;
+  border-radius:13px;display:block;
+}
+
+.rank-badge{
+  position:absolute;top:0;left:0;transform:translate(-18%,-18%);
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:13px;font-weight:900;border:2px solid #fff;z-index:2;
+}
+
+.result-name{
+  text-align:center;font-size:11px;font-weight:900;margin-top:7px;
+  min-height:29px;display:flex;align-items:center;justify-content:center;
+}
+
+.result-buttons{display:grid;gap:10px;margin-top:18px}
+
+.modal{
+  position:fixed;inset:0;z-index:100;display:none;
+  align-items:center;justify-content:center;padding:20px;
+  background:rgba(58,42,70,.55);
+}
+
+.modal.show{display:flex}
+
+.modal-box{
+  width:min(100%,430px);max-height:90vh;overflow:auto;
+  border-radius:24px;background:#fff;padding:17px;
+}
+
+.modal-box img{width:100%;border-radius:16px;display:block}
+.modal-actions{display:grid;gap:9px;margin-top:12px}
+
+@media(max-width:380px){
+  .app{padding-left:10px;padding-right:10px}
+  .title{font-size:27px}
+  .member-grid{gap:6px}
+  .member-name{font-size:10px}
+  .step-label{font-size:10px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="decor-planet p1 planet"><div class="planet-body"></div><div class="planet-ring"></div></div>
+<div class="decor-planet p2 planet"><div class="planet-body"></div><div class="planet-ring"></div></div>
+<div class="decor-planet p3 planet"><div class="planet-body"></div><div class="planet-ring"></div></div>
+
+<div class="app">
+<div class="content">
+
+<header class="header">
+  <div class="eyebrow">SORA-GUMI TOP 9</div>
+  <h1 class="title">宙組 好き顔<span class="title-number">9選</span></h1>
+
+  <div class="title-decoration">
+    <div class="mini-planet">
+      <div class="planet">
+        <div class="planet-body"></div>
+        <div class="planet-ring"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div id="steps"></div>
+<main id="app"></main>
+
+</div>
+</div>
+
+<div class="modal" id="imageModal">
+  <div class="modal-box">
+    <img id="generatedImage" alt="宙組 好き顔9選">
+    <div class="modal-actions">
+      <button class="primary-button" id="shareImageButton">画像を保存・共有</button>
+      <button class="secondary-button" id="closeModalButton">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<script src="members.js"></script>
+
+<script>
+const SAVE_KEY="soragumiTop9StateV1";
+const PAGE_SIZE=9;
+const NARROW_SIZE=4;
+const FINAL_COUNT=9;
+
+const app=document.getElementById("app");
+const steps=document.getElementById("steps");
+
+let state=createInitialState();
+
+function createInitialState(){
+  return{
+    stage:"home",
+    preliminaryPool:[],
+    preliminaryPage:0,
+    preliminarySelected:[],
+    narrowPool:[],
+    narrowSelected:[],
+    narrowRound:0,
+    rankPool:[],
+    ranked:[],
+    insertIndex:0,
+    low:0,
+    high:0,
+    currentMiddle:0,
+    result:[]
+  };
+}
+
+function saveState(){localStorage.setItem(SAVE_KEY,JSON.stringify(state))}
+function clearSavedState(){localStorage.removeItem(SAVE_KEY)}
+
+function shuffle(array){
+  const copy=[...array];
+  for(let i=copy.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [copy[i],copy[j]]=[copy[j],copy[i]];
+  }
+  return copy;
+}
+
+function memberById(id){return members.find(m=>m.id===id)}
+
+function planetHTML(){
+  return `<div class="planet"><div class="planet-body"></div><div class="planet-ring"></div></div>`;
+}
+
+function currentStep(){
+  if(state.stage==="preliminary")return 1;
+  if(state.stage==="narrow")return 2;
+  if(state.stage==="ranking")return 3;
+  if(state.stage==="result")return 4;
+  return 0;
+}
+
+function renderSteps(){
+  if(state.stage==="home"){steps.innerHTML="";return}
+
+  const current=currentStep();
+  const labels=["予選","20人","順位","結果"];
+
+  steps.innerHTML=`
+    <div class="stepper">
+      ${labels.map((label,index)=>{
+        const number=index+1;
+        let c="";
+        if(number<current)c="done";
+        else if(number===current)c="active";
+
+        return `<div class="step ${c}">
+          <div class="step-circle">${number}</div>
+          <div class="step-label">${label}</div>
+        </div>`;
+      }).join("")}
+    </div>`;
+}
+
+function render(){
+  renderSteps();
+  saveState();
+
+  if(state.stage==="home")renderHome();
+  else if(state.stage==="preliminary")renderPreliminary();
+  else if(state.stage==="narrow")renderNarrow();
+  else if(state.stage==="ranking")renderRanking();
+  else if(state.stage==="result")renderResult();
+}
+
+function renderHome(){
+  app.innerHTML=`
+    <section class="panel home">
+      <div class="home-planet">${planetHTML()}</div>
+
+      <h2>宙組 好き顔9選</h2>
+
+      <p>
+        宙組生の中から好きな顔を選んで、
+        あなただけのTOP9を作ります。
+      </p>
+
+      <div class="flow">
+        <span>73人</span><b>→</b>
+        <span>20人</span><b>→</b>
+        <span>2択</span><b>→</b>
+        <span>TOP9</span>
+      </div>
+
+      <button class="primary-button" onclick="startGame()">はじめる</button>
+    </section>`;
+}
+
+function startGame(){
+  state=createInitialState();
+  state.stage="preliminary";
+  state.preliminaryPool=shuffle(members.map(m=>m.id));
+  render();
+}
+
+function renderPreliminary(){
+  const totalPages=Math.ceil(state.preliminaryPool.length/PAGE_SIZE);
+  const start=state.preliminaryPage*PAGE_SIZE;
+  const pageIds=state.preliminaryPool.slice(start,start+PAGE_SIZE);
+  const progress=((state.preliminaryPage+1)/totalPages)*100;
+
+  app.innerHTML=`
+    <div class="progress-wrap">
+      <div class="progress-info">
+        <span>好きな顔を選ぶ</span>
+        <span>${state.preliminaryPage+1} / ${totalPages}</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-bar" style="width:${progress}%"></div>
+      </div>
+    </div>
+
+    <section class="panel">
+      <h2 class="stage-title">好きな人を選んでね</h2>
+      <p class="stage-subtitle">何人選んでもOK</p>
+
+      <div class="member-grid">
+        ${pageIds.map(id=>{
+          const m=memberById(id);
+          const selected=state.preliminarySelected.includes(id);
+
+          return `<div class="member-card ${selected?"selected":""}" onclick="togglePreliminary(${id})">
+            <img class="member-photo" src="${m.image}" alt="${m.name}">
+            <div class="selected-planet">${planetHTML()}</div>
+            <div class="member-name">${m.name}</div>
+          </div>`;
+        }).join("")}
+      </div>
+
+      <div class="bottom-actions">
+        <div class="selection-count">現在 ${state.preliminarySelected.length}人 選択中</div>
+
+        <div class="button-row">
+          <button class="secondary-button"
+            onclick="previousPreliminary()"
+            ${state.preliminaryPage===0?"disabled":""}>前へ</button>
+
+          <button class="primary-button" onclick="nextPreliminary()">
+            ${state.preliminaryPage===totalPages-1?"選択を決定":"次へ"}
+          </button>
+        </div>
+      </div>
+    </section>`;
+}
+
+function togglePreliminary(id){
+  if(state.preliminarySelected.includes(id)){
+    state.preliminarySelected=state.preliminarySelected.filter(x=>x!==id);
+  }else{
+    state.preliminarySelected.push(id);
+  }
+
+  renderPreliminary();
+  saveState();
+}
+
+function previousPreliminary(){
+  if(state.preliminaryPage>0){
+    state.preliminaryPage--;
+    render();
+  }
+}
+
+function nextPreliminary(){
+  const totalPages=Math.ceil(state.preliminaryPool.length/PAGE_SIZE);
+
+  if(state.preliminaryPage<totalPages-1){
+    state.preliminaryPage++;
+    render();
+    return;
+  }
+
+  if(state.preliminarySelected.length<9){
+    alert(`現在${state.preliminarySelected.length}人です。TOP9を作るため、9人以上選んでね！`);
+    return;
+  }
+
+  beginNarrowing([...state.preliminarySelected]);
+}
+
+function beginNarrowing(ids){
+  if(ids.length>20){
+    state.stage="narrow";
+    state.narrowPool=shuffle(ids);
+    state.narrowSelected=[];
+    state.narrowRound=0;
+    render();
+  }else{
+    startRanking(ids);
+  }
+}
+
+function renderNarrow(){
+  const start=state.narrowRound*NARROW_SIZE;
+  const pageIds=state.narrowPool.slice(start,start+NARROW_SIZE);
+
+  if(!pageIds.length){
+    finishNarrowing();
+    return;
+  }
+
+  const totalRounds=Math.ceil(state.narrowPool.length/NARROW_SIZE);
+  const progress=((state.narrowRound+1)/totalRounds)*100;
+
+  app.innerHTML=`
+    <div class="progress-wrap">
+      <div class="progress-info">
+        <span>20人まで絞る</span>
+        <span>${state.narrowRound+1} / ${totalRounds}</span>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-bar" style="width:${progress}%"></div>
+      </div>
+    </div>
+
+    <section class="panel">
+      <h2 class="stage-title">より好きな人を選んでね</h2>
+      <p class="stage-subtitle">
+        あと ${Math.max(0,20-state.narrowSelected.length)}人 選べます
+      </p>
+
+      <div class="member-grid">
+        ${pageIds.map(id=>{
+          const m=memberById(id);
+          const selected=state.narrowSelected.includes(id);
+
+          return `<div class="member-card ${selected?"selected":""}" onclick="toggleNarrow(${id})">
+            <img class="member-photo" src="${m.image}" alt="${m.name}">
+            <div class="selected-planet">${planetHTML()}</div>
+            <div class="member-name">${m.name}</div>
+          </div>`;
+        }).join("")}
+      </div>
+
+      <div class="bottom-actions">
+        <div class="selection-count">${state.narrowSelected.length} / 20人</div>
+
+        <div class="button-row">
+          <button class="secondary-button"
+            onclick="previousNarrow()"
+            ${state.narrowRound===0?"disabled":""}>前へ</button>
+
+          <button class="primary-button" onclick="nextNarrowRound()">
+            ${state.narrowRound===totalRounds-1?"20人を決定":"次へ"}
+          </button>
+        </div>
+      </div>
+    </section>`;
+}
+
+function toggleNarrow(id){
+  if(state.narrowSelected.includes(id)){
+    state.narrowSelected=state.narrowSelected.filter(x=>x!==id);
+  }else{
+    if(state.narrowSelected.length>=20){
+      alert("選べるのは20人までです");
+      return;
+    }
+
+    state.narrowSelected.push(id);
+  }
+
+  renderNarrow();
+  saveState();
+}
+
+function previousNarrow(){
+  if(state.narrowRound>0){
+    state.narrowRound--;
+    render();
+  }
+}
+
+function nextNarrowRound(){
+  const totalRounds=Math.ceil(state.narrowPool.length/NARROW_SIZE);
+
+  if(state.narrowRound<totalRounds-1){
+    state.narrowRound++;
+    render();
+    return;
+  }
+
+  finishNarrowing();
+}
+
+function finishNarrowing(){
+  if(state.narrowSelected.length!==20){
+    alert(`現在${state.narrowSelected.length}人です。20人選んでね！`);
+    return;
+  }
+
+  startRanking([...state.narrowSelected]);
+}
+
+function startRanking(ids){
+  state.stage="ranking";
+  state.rankPool=shuffle(ids);
+  state.ranked=[state.rankPool[0]];
+  state.insertIndex=1;
+  prepareInsertion();
+}
+
+function prepareInsertion(){
+  if(state.insertIndex>=state.rankPool.length){
+    finishRanking();
+    return;
+  }
+
+  state.low=0;
+  state.high=state.ranked.length;
+  render();
+}
+
+function renderRanking(){
+  const candidateId=state.rankPool[state.insertIndex];
+
+  if(state.low>=state.high){
+    state.ranked.splice(state.low,0,candidateId);
+    state.insertIndex++;
+    prepareInsertion();
+    return;
+  }
+
+  const middle=Math.floor((state.low+state.high)/2);
+  state.currentMiddle=middle;
+
+  const candidate=memberById(candidateId);
+  const opponent=memberById(state.ranked[middle]);
+  const progress=(state.insertIndex/state.rankPool.length)*100;
+
+  app.innerHTML=`
+    <div class="progress-wrap">
+      <div class="progress-info">
+        <span>2択で順位決定</span>
+        <span>${state.insertIndex+1} / ${state.rankPool.length}</span>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-bar" style="width:${progress}%"></div>
+      </div>
+    </div>
+
+    <section class="panel compare-wrap">
+      <h2 class="stage-title">どっちが好き？</h2>
+
+      <div class="compare-grid">
+        <div class="compare-card" onclick="chooseComparison('candidate')">
+          <img class="compare-photo" src="${candidate.image}" alt="${candidate.name}">
+          <div class="compare-name">${candidate.name}</div>
+        </div>
+
+        <div class="compare-card" onclick="chooseComparison('opponent')">
+          <img class="compare-photo" src="${opponent.image}" alt="${opponent.name}">
+          <div class="compare-name">${opponent.name}</div>
+        </div>
+      </div>
+    </section>`;
+
+  saveState();
+}
+
+function chooseComparison(choice){
+  if(choice==="candidate"){
+    state.high=state.currentMiddle;
+  }else{
+    state.low=state.currentMiddle+1;
+  }
+
+  renderRanking();
+}
+
+function finishRanking(){
+  state.result=[...state.ranked].slice(0,9);
+  state.stage="result";
+  render();
+}
+
+/* 1金・2銀・3銅 */
+function rankColor(index){
+  const colors=[
+    "#d4af37",
+    "#aeb4ba",
+    "#b9824d",
+    "#9c76bd",
+    "#b18ed0",
+    "#8962ad",
+    "#c1a6d8",
+    "#9f7dbb",
+    "#b89bcf"
+  ];
+
+  return colors[index]||"#9c76bd";
+}
+
+function renderResult(){
+  app.innerHTML=`
+    <section class="panel">
+      <div class="result-heading">
+        <h2>宙組 好き顔9選</h2>
+        <div class="result-decoration"></div>
+      </div>
+
+      <div class="result-grid">
+        ${state.result.map((id,index)=>{
+          const m=memberById(id);
+
+          return `<div class="result-card">
+            <div class="rank-badge" style="background:${rankColor(index)}">
+              ${index+1}
+            </div>
+
+            <img src="${m.image}" alt="${m.name}">
+            <div class="result-name">${m.name}</div>
+          </div>`;
+        }).join("")}
+      </div>
+
+      <div class="result-buttons">
+        <button class="primary-button" onclick="showSaveImage()">結果画像を作る</button>
+        <button class="secondary-button" onclick="restartGame()">もう一度遊ぶ</button>
+      </div>
+    </section>`;
+}
+
+function restartGame(){
+  clearSavedState();
+  state=createInitialState();
+  render();
+}
+
+/* 保存画像 */
+
+function roundedRect(ctx,x,y,w,h,r){
+  const radius=Math.min(r,w/2,h/2);
+
+  ctx.beginPath();
+  ctx.moveTo(x+radius,y);
+  ctx.arcTo(x+w,y,x+w,y+h,radius);
+  ctx.arcTo(x+w,y+h,x,y+h,radius);
+  ctx.arcTo(x,y+h,x,y,radius);
+  ctx.arcTo(x,y,x+w,y,radius);
+  ctx.closePath();
+}
+
+function loadImage(src){
+  return new Promise((resolve,reject)=>{
+    const img=new Image();
+    img.onload=()=>resolve(img);
+    img.onerror=reject;
+    img.src=src;
+  });
+}
+
+function drawCover(ctx,img,x,y,w,h){
+  const ir=img.width/img.height;
+  const br=w/h;
+
+  let sx=0,sy=0,sw=img.width,sh=img.height;
+
+  if(ir>br){
+    sw=img.height*br;
+    sx=(img.width-sw)/2;
+  }else{
+    sh=img.width/br;
+    sy=(img.height-sh)*.20;
+
+    if(sy<0)sy=0;
+    if(sy+sh>img.height)sy=img.height-sh;
+  }
+
+  ctx.drawImage(img,sx,sy,sw,sh,x,y,w,h);
+}
+
+/* Canvas用の紫の惑星 */
+function drawPlanet(ctx,x,y,size,opacity=1,rotation=-0.25){
+  ctx.save();
+
+  ctx.globalAlpha=opacity;
+  ctx.translate(x,y);
+  ctx.rotate(rotation);
+
+  /* 輪 */
+  ctx.strokeStyle="#9a70bd";
+  ctx.lineWidth=Math.max(3,size*.12);
+  ctx.beginPath();
+  ctx.ellipse(
+    0,
+    0,
+    size*1.35,
+    size*.48,
+    0,
+    0,
+    Math.PI*2
+  );
+  ctx.stroke();
+
+  /* 惑星本体 */
+  const planetGradient=ctx.createLinearGradient(-size,-size,size,size);
+  planetGradient.addColorStop(0,"#d1b3e8");
+  planetGradient.addColorStop(1,"#865cab");
+
+  ctx.fillStyle=planetGradient;
+  ctx.beginPath();
+  ctx.arc(0,0,size,0,Math.PI*2);
+  ctx.fill();
+
+  /* 小さな模様 */
+  ctx.fillStyle="rgba(255,255,255,.24)";
+  ctx.beginPath();
+  ctx.arc(-size*.28,-size*.24,size*.16,0,Math.PI*2);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(size*.25,size*.18,size*.11,0,Math.PI*2);
+  ctx.fill();
+
+  /* 手前側の輪 */
+  ctx.strokeStyle="#8057a4";
+  ctx.lineWidth=Math.max(3,size*.12);
+  ctx.beginPath();
+  ctx.ellipse(
+    0,
+    0,
+    size*1.35,
+    size*.48,
+    0,
+    0,
+    Math.PI
+  );
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+async function makeResultCanvas(){
+  const canvas=document.createElement("canvas");
+
+  canvas.width=1080;
+  canvas.height=1700;
+
+  const ctx=canvas.getContext("2d");
+
+  const gradient=ctx.createLinearGradient(0,0,0,1700);
+
+  gradient.addColorStop(0,"#fffefe");
+  gradient.addColorStop(.5,"#faf5ff");
+  gradient.addColorStop(1,"#eee2f8");
+
+  ctx.fillStyle=gradient;
+  ctx.fillRect(0,0,1080,1700);
+
+  drawPlanet(ctx,30,95,50,.13,-.25);
+  drawPlanet(ctx,1045,145,58,.14,.25);
+  drawPlanet(ctx,25,1510,58,.14,-.2);
+  drawPlanet(ctx,1050,1545,50,.13,.3);
+
+  ctx.textAlign="center";
+  ctx.fillStyle="#896ba3";
+  ctx.font='700 25px Georgia,serif';
+  ctx.fillText("S O R A - G U M I   T O P   9",540,76);
+
+  ctx.fillStyle="#51445f";
+  ctx.font='900 64px -apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif';
+  ctx.fillText("宙組 好き顔9選",540,160);
+
+  ctx.strokeStyle="#b49ac9";
+  ctx.lineWidth=2;
+
+  ctx.beginPath();
+  ctx.moveTo(235,218);
+  ctx.lineTo(465,218);
+  ctx.moveTo(615,218);
+  ctx.lineTo(845,218);
+  ctx.stroke();
+
+  drawPlanet(ctx,540,218,16,1,-.22);
+
+  const marginX=55;
+  const gapX=25;
+  const gapY=30;
+
+  const cardWidth=(1080-marginX*2-gapX*2)/3;
+  const cardHeight=405;
+  const startY=275;
+  const photoMargin=12;
+  const photoWidth=cardWidth-photoMargin*2;
+  const photoHeight=305;
+
+  for(let index=0;index<state.result.length;index++){
+    const m=memberById(state.result[index]);
+
+    const col=index%3;
+    const row=Math.floor(index/3);
+
+    const x=marginX+col*(cardWidth+gapX);
+    const y=startY+row*(cardHeight+gapY);
+
+    ctx.save();
+
+    ctx.shadowColor="rgba(105,70,135,.14)";
+    ctx.shadowBlur=22;
+    ctx.shadowOffsetY=9;
+    ctx.fillStyle="#fff";
+
+    roundedRect(ctx,x,y,cardWidth,cardHeight,23);
+    ctx.fill();
+
+    ctx.restore();
+
+    ctx.fillStyle="#fff";
+
+    roundedRect(ctx,x,y,cardWidth,cardHeight,23);
+    ctx.fill();
+
+    try{
+      const img=await loadImage(m.image);
+
+      ctx.save();
+
+      roundedRect(
+        ctx,
+        x+photoMargin,
+        y+photoMargin,
+        photoWidth,
+        photoHeight,
+        15
+      );
+
+      ctx.clip();
+
+      drawCover(
+        ctx,
+        img,
+        x+photoMargin,
+        y+photoMargin,
+        photoWidth,
+        photoHeight
+      );
+
+      ctx.restore();
+
+    }catch(error){
+      console.error(error);
+    }
+
+    const rankX=x+13;
+    const rankY=y+20;
+
+    ctx.beginPath();
+    ctx.arc(rankX,rankY,36,0,Math.PI*2);
+
+    ctx.fillStyle=rankColor(index);
+    ctx.fill();
+
+    ctx.lineWidth=4;
+    ctx.strokeStyle="#fff";
+    ctx.stroke();
+
+    ctx.fillStyle="#fff";
+    ctx.textAlign="center";
+    ctx.font='900 31px -apple-system,sans-serif';
+
+    ctx.fillText(
+      String(index+1),
+      rankX,
+      rankY+11
+    );
+
+    ctx.fillStyle="#51445f";
+    ctx.font='900 28px -apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif';
+
+    ctx.fillText(
+      m.name,
+      x+cardWidth/2,
+      y+366
+    );
+  }
+
+  const footerY=1600;
+
+  ctx.strokeStyle="#b49ac9";
+  ctx.lineWidth=2;
+
+  ctx.beginPath();
+  ctx.moveTo(270,footerY);
+  ctx.lineTo(465,footerY);
+  ctx.moveTo(615,footerY);
+  ctx.lineTo(810,footerY);
+  ctx.stroke();
+
+  drawPlanet(ctx,540,footerY,15,1,-.22);
+
+  const today=new Date()
+    .toLocaleDateString(
+      "ja-JP",
+      {
+        year:"numeric",
+        month:"2-digit",
+        day:"2-digit"
+      }
+    )
+    .replaceAll("/",".");
+
+  ctx.fillStyle="#846f93";
+  ctx.textAlign="center";
+  ctx.font='500 23px Georgia,serif';
+
+  ctx.fillText(today,540,1660);
+
+  return canvas;
+}
+
+let latestCanvas=null;
+
+async function showSaveImage(){
+  try{
+    latestCanvas=await makeResultCanvas();
+
+    document.getElementById("generatedImage").src=
+      latestCanvas.toDataURL("image/png");
+
+    document
+      .getElementById("imageModal")
+      .classList.add("show");
+
+  }catch(error){
+    console.error(error);
+    alert("画像の作成に失敗しました");
+  }
+}
+
+document
+.getElementById("shareImageButton")
+.addEventListener("click",async()=>{
+
+  if(!latestCanvas)return;
+
+  latestCanvas.toBlob(async blob=>{
+
+    if(!blob)return;
+
+    const file=new File(
+      [blob],
+      "soragumi-top9.png",
+      {type:"image/png"}
+    );
+
+    if(
+      navigator.share &&
+      navigator.canShare &&
+      navigator.canShare({files:[file]})
+    ){
+      try{
+        await navigator.share({
+          files:[file],
+          title:"宙組 好き顔9選"
+        });
+
+        return;
+
+      }catch(error){
+        if(error.name==="AbortError")return;
+      }
+    }
+
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement("a");
+
+    link.href=url;
+    link.download="soragumi-top9.png";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(
+      ()=>URL.revokeObjectURL(url),
+      1000
+    );
+
+  },"image/png");
+});
+
+document
+.getElementById("closeModalButton")
+.addEventListener("click",()=>{
+  document
+    .getElementById("imageModal")
+    .classList.remove("show");
+});
+
+render();
+</script>
+</body>
+</html>
